@@ -232,7 +232,11 @@ function WorldDropDownMenu({ isMobile = false }) {
     const formatted = {};
     pkg.forEach((item) => {
       if (item.type !== "world") return;
-      const { category: continent, group: country, destinationName: city } = item;
+      const {
+        category: continent,
+        group: country,
+        destinationName: city,
+      } = item;
       if (!formatted[continent]) formatted[continent] = {};
       if (!formatted[continent][country]) formatted[continent][country] = [];
       if (!formatted[continent][country].includes(city)) {
@@ -255,7 +259,7 @@ function WorldDropDownMenu({ isMobile = false }) {
           <ChevronDown
             className={cn(
               "h-4 w-4 text-white/70 transition-transform duration-200",
-              isOpen && "rotate-180"
+              isOpen && "rotate-180",
             )}
           />
         </button>
@@ -264,7 +268,7 @@ function WorldDropDownMenu({ isMobile = false }) {
         <div
           className={cn(
             "overflow-hidden transition-all duration-300 ease-in-out",
-            isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+            isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0",
           )}
         >
           {isLoading ? (
@@ -288,7 +292,7 @@ function WorldDropDownMenu({ isMobile = false }) {
                       <ChevronRight
                         className={cn(
                           "h-4 w-4 text-white/50 transition-transform duration-200",
-                          isExpanded && "rotate-90"
+                          isExpanded && "rotate-90",
                         )}
                       />
                     </button>
@@ -297,7 +301,7 @@ function WorldDropDownMenu({ isMobile = false }) {
                     <div
                       className={cn(
                         "overflow-hidden transition-all duration-300 ease-in-out",
-                        isExpanded ? "max-h-[400px]" : "max-h-0"
+                        isExpanded ? "max-h-[400px]" : "max-h-0",
                       )}
                     >
                       {!countries ? (
@@ -306,25 +310,27 @@ function WorldDropDownMenu({ isMobile = false }) {
                         </p>
                       ) : (
                         <div className="px-6 pb-4 pt-1 grid grid-cols-2 gap-x-4 gap-y-3">
-                          {Object.entries(countries).map(([country, destinations]) => (
-                            <div key={country}>
-                              <p className="text-xs font-semibold text-sky-300 uppercase tracking-wide mb-1 capitalize">
-                                {country}
-                              </p>
-                              <ul className="space-y-1">
-                                {destinations.map((dest) => (
-                                  <li key={dest}>
-                                    <Link
-                                      to={`/city/${dest.toLowerCase()}`}
-                                      className="text-xs text-white/70 hover:text-white transition-colors"
-                                    >
-                                      {dest}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
+                          {Object.entries(countries).map(
+                            ([country, destinations]) => (
+                              <div key={country}>
+                                <p className="text-xs font-semibold text-sky-300 text-transform:uppercase tracking-wide mb-1 capitalize">
+                                  {country}
+                                </p>
+                                <ul className="space-y-1">
+                                  {destinations.map((dest) => (
+                                    <li key={dest}>
+                                      <Link
+                                        to={`/city/${dest.toLowerCase()}`}
+                                        className="text-xs text-white/70 hover:text-white transition-colors"
+                                      >
+                                        {dest}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ),
+                          )}
                         </div>
                       )}
                     </div>
@@ -347,14 +353,14 @@ function WorldDropDownMenu({ isMobile = false }) {
           "inline-flex items-center gap-1 rounded-md px-3 py-2 text-xs font-bold",
           "bg-transparent hover:bg-gray-100 transition-colors select-none",
           "focus:outline-none focus:ring-2 focus:ring-blue-500",
-          isOpen && "bg-gray-100 text-black"
+          isOpen && "bg-gray-100 text-black",
         )}
       >
         World
         <ChevronDown
           className={cn(
             "h-4 w-4 text-gray-500 transition-transform duration-200",
-            isOpen && "rotate-180"
+            isOpen && "rotate-180",
           )}
         />
       </button>
@@ -365,7 +371,7 @@ function WorldDropDownMenu({ isMobile = false }) {
             "absolute top-full left-0 mt-1",
             "w-[800px] bg-white rounded-lg shadow-2xl border border-gray-100",
             "grid grid-cols-4 gap-6 p-6",
-            "z-[9999]"
+            "z-[9999]",
           )}
         >
           {/* LEFT SIDEBAR */}
@@ -379,7 +385,7 @@ function WorldDropDownMenu({ isMobile = false }) {
                   "cursor-pointer px-3 py-2 rounded capitalize text-sm transition-colors",
                   activeRegion === region
                     ? "bg-blue-100 text-blue-600 font-medium"
-                    : "hover:bg-gray-100 text-gray-700"
+                    : "hover:bg-gray-100 text-gray-700",
                 )}
               >
                 {region}
@@ -418,13 +424,18 @@ function WorldDropDownMenu({ isMobile = false }) {
                       </h4>
                       <ul className="space-y-1">
                         {destinations.map((dest) => (
-                          <li key={dest} className="hover:text-blue-600 cursor-pointer text-gray-600 text-sm">
-                            <Link to={`/city/${dest?.toLowerCase()}`}>{dest}</Link>
+                          <li
+                            key={dest}
+                            className="hover:text-blue-600 cursor-pointer text-gray-600 text-sm"
+                          >
+                            <Link to={`/city/${dest?.toLowerCase()}`}>
+                              {dest}
+                            </Link>
                           </li>
                         ))}
                       </ul>
                     </div>
-                  )
+                  ),
                 )}
               </div>
             )}

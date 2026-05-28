@@ -260,7 +260,7 @@ function IndiaDropDownMenu({ isMobile = false }) {
           <ChevronDown
             className={cn(
               "h-4 w-4 text-white/70 transition-transform duration-200",
-              isOpen && "rotate-180"
+              isOpen && "rotate-180",
             )}
           />
         </button>
@@ -269,7 +269,7 @@ function IndiaDropDownMenu({ isMobile = false }) {
         <div
           className={cn(
             "overflow-hidden transition-all duration-300 ease-in-out",
-            isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+            isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0",
           )}
         >
           {isLoading ? (
@@ -293,7 +293,7 @@ function IndiaDropDownMenu({ isMobile = false }) {
                       <ChevronRight
                         className={cn(
                           "h-4 w-4 text-white/50 transition-transform duration-200",
-                          isExpanded && "rotate-90"
+                          isExpanded && "rotate-90",
                         )}
                       />
                     </button>
@@ -302,7 +302,7 @@ function IndiaDropDownMenu({ isMobile = false }) {
                     <div
                       className={cn(
                         "overflow-hidden transition-all duration-300 ease-in-out",
-                        isExpanded ? "max-h-[400px]" : "max-h-0"
+                        isExpanded ? "max-h-[400px]" : "max-h-0",
                       )}
                     >
                       {!groups ? (
@@ -313,7 +313,7 @@ function IndiaDropDownMenu({ isMobile = false }) {
                         <div className="px-6 pb-4 pt-1 grid grid-cols-2 gap-x-4 gap-y-3">
                           {Object.entries(groups).map(([group, cities]) => (
                             <div key={group}>
-                              <p className="text-xs font-semibold text-sky-300 uppercase tracking-wide mb-1 capitalize">
+                              <p className="text-xs font-semibold text-sky-300 text-transform:uppercase tracking-wide mb-1 capitalize">
                                 {group}
                               </p>
                               <ul className="space-y-1">
@@ -352,14 +352,14 @@ function IndiaDropDownMenu({ isMobile = false }) {
           "inline-flex items-center gap-1 rounded-md mr-1 px-3 py-2 text-xs font-bold",
           "bg-transparent hover:bg-gray-100 transition-colors select-none",
           "focus:outline-none focus:ring-2 focus:ring-blue-500",
-          isOpen && "bg-gray-100 text-black"
+          isOpen && "bg-gray-100 text-black",
         )}
       >
         India
         <ChevronDown
           className={cn(
             "h-4 w-4 text-gray-500 transition-transform duration-200",
-            isOpen && "rotate-180"
+            isOpen && "rotate-180",
           )}
         />
       </button>
@@ -373,7 +373,7 @@ function IndiaDropDownMenu({ isMobile = false }) {
             "sm:right-auto sm:w-[520px]",
             "lg:w-[800px]",
             "flex flex-col",
-            "lg:grid lg:grid-cols-4 lg:gap-6 lg:p-6"
+            "lg:grid lg:grid-cols-4 lg:gap-6 lg:p-6",
           )}
         >
           {/* LEFT SIDEBAR */}
@@ -388,7 +388,7 @@ function IndiaDropDownMenu({ isMobile = false }) {
                   "px-2 py-2.5 lg:px-3 lg:py-2 lg:text-left",
                   activeCategory === category
                     ? "bg-blue-100 text-blue-600 font-medium"
-                    : "hover:bg-gray-100 text-gray-700"
+                    : "hover:bg-gray-100 text-gray-700",
                 )}
               >
                 {category.replace(/-/g, " ")}
@@ -408,7 +408,12 @@ function IndiaDropDownMenu({ isMobile = false }) {
             ) : !dynamicData[activeCategory] ? (
               <p className="text-sm text-gray-400">No destinations available</p>
             ) : (
-              <div className={cn("grid grid-cols-2 gap-4", "lg:grid-cols-3 lg:gap-6")}>
+              <div
+                className={cn(
+                  "grid grid-cols-2 gap-4",
+                  "lg:grid-cols-3 lg:gap-6",
+                )}
+              >
                 {Object.entries(dynamicData[activeCategory] || {}).map(
                   ([group, cities]) => (
                     <div key={group}>
@@ -429,7 +434,7 @@ function IndiaDropDownMenu({ isMobile = false }) {
                         ))}
                       </ul>
                     </div>
-                  )
+                  ),
                 )}
               </div>
             )}
