@@ -74,7 +74,7 @@ function PackageDetailsScreen() {
   
   const [reserveSpot] = useCreateBookingMutation();
 
-  // console.log(pkg);
+  console.log(pkg);
 
  
   const navigate = useNavigate();
@@ -255,11 +255,11 @@ function PackageDetailsScreen() {
           {/* LEFT COLUMN */}
           <div className="space-y-8">
             {/* Route summary */}
-            {pkg?.highlights && (
+            {pkg?.destinationName && (
               <div className="flex items-start gap-2 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3">
                 <MapPin size={16} className="text-blue-500 mt-0.5 shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  {pkg.highlights}
+                  {pkg?.title} , {pkg.destinationName} - {pkg?.group} ({pkg?.category})
                 </p>
               </div>
             )}
