@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,11 +17,9 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 
 function ReserveSpot({ pkg, reserveSpot }) {
-  // console.log(pkg);
 
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-
   const [input, setInput] = useState({
     fullName: "",
     countryCode: "+91",
@@ -32,7 +28,7 @@ function ReserveSpot({ pkg, reserveSpot }) {
     tripDetails: "",
     specialRequest: "",
     whatsappUpdates: true,
-    departureCity: "All departures",
+    departureCity: "",
     departureDate: "",
     packageId: pkg?._id,
   });
@@ -57,7 +53,7 @@ function ReserveSpot({ pkg, reserveSpot }) {
       tripDetails: input.tripDetails || "",
       specialRequest: input.specialRequest,
       whatsappUpdates: input.whatsappUpdates,
-      departureCity: "All departures",
+      departureCity: input.departureCity || "All departures",
       departureDate: input.departureDate || "",
       packageId: pkg?._id,
     };
@@ -98,10 +94,10 @@ function ReserveSpot({ pkg, reserveSpot }) {
       {/* SIDEBAR */}
       <SheetContent
         side="right"
-        className="w-full sm:max-w-xl overflow-y-auto bg-white border-l shadow-2xl"
+        className="w-full sm:max-w-xl overflow-y-auto bg-white border-l shadow-2xl pt-0"
       >
-        <div className=" px-4 sm:px-2 py-2 bg-white">
-          <SheetHeader className=" text-left">
+        <div className="px-2 pt-0 pb-1 bg-white">
+          <SheetHeader className="text-left">
             <p className="text-[11px] uppercase tracking-[0.18em] text-gray-400 font-medium">
               Travabay Holidays
             </p>
@@ -118,8 +114,10 @@ function ReserveSpot({ pkg, reserveSpot }) {
         </div>
 
         {/* PACKAGE INFO */}
-        <div className=" px-4 mx-2">
-          <h3 className="font-bold text-lg uppercase">{pkg?.title}</h3>
+        <div className="px-4 mx-2">
+          <h3 className="font-bold text-lg uppercase">
+            {pkg?.title} <span className="text-blue-800">({pkg?.group})</span>
+          </h3>
 
           <div className="flex items-center gap-3 text-gray-500  text-sm">
             <span>{pkg?.days}</span>
@@ -131,7 +129,7 @@ function ReserveSpot({ pkg, reserveSpot }) {
         </div>
 
         {/* FORM */}
-        <form onSubmit={submitHandler} className="space-y-5">
+        <form onSubmit={submitHandler} className="space-y-3">
           <Input
             type="text"
             name="fullName"
@@ -148,7 +146,7 @@ function ReserveSpot({ pkg, reserveSpot }) {
               name="countryCode"
               value={input.countryCode}
               onChange={inputHandler}
-              className="w-full h-12 rounded-xl border border-input px-3 text-sm"
+              className="w-full h-10 rounded-xl border border-input px-3 text-sm"
             >
               <option value="+91">IN +91</option>
               <option value="+1">US +1</option>
@@ -187,6 +185,17 @@ function ReserveSpot({ pkg, reserveSpot }) {
             placeholder="Tell us about your trip or special requests*"
             required
             className="min-h-[80px] rounded-xl resize-none"
+          />
+
+          <Input
+            type="text"
+            name="departureCity"
+            value={input.departureCity}
+            onChange={inputHandler}
+            placeholder="Departure City (e.g. Nagpur, Mumbai)"
+            className="h-12 rounded-xl"
+            maxLength={14}
+            required
           />
 
           <Input

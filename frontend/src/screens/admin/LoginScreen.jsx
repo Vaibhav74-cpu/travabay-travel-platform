@@ -3,6 +3,7 @@ import { setOtpEmail } from "@/redux/slices/authSlice";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -27,9 +28,13 @@ function LoginScreen() {
     try {
       const res = await login({ email }).unwrap();
       dispatch(setOtpEmail(res.email));
+      toast.success(
+        res?.data?.message || res?.data || "Otp sent on your email - check it",
+      );
       navigate("/admin/verify-email");
     } catch (error) {
       console.log(error);
+      toast.error(error?.data?.message || "Email is Invalid");
     }
   };
 

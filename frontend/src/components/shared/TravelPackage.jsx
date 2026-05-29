@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Rating from "./Rating.jsx";
 import EnquiryForm from "./TravelEnquiryForm.jsx";
-import { ChevronDown, X } from "lucide-react";
+import {  X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function TravelPackage({ pkg }) {

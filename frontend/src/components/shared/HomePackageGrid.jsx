@@ -28,10 +28,10 @@ function HomePackageGrid() {
           <Message>{isError}</Message>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-            {packages.map((pkg) => (
+            {packages.slice(0, 6).map((pkg) => (
               <div
                 key={pkg._id}
-                onClick={() => navigate(`/package/${pkg._id || pkg._id}` )}
+                onClick={() => navigate(`/package/${pkg._id || pkg._id}`)}
                 className="group cursor-pointer"
               >
                 {/* Image Container */}

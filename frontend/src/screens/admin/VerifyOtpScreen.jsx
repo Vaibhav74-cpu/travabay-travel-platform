@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "@/redux/slices/authSlice";
+import { toast } from "sonner";
 
 function VerifyOtpScreen() {
   const dispatch = useDispatch();
@@ -23,9 +24,11 @@ function VerifyOtpScreen() {
       );
 
       dispatch(setCredentials(res.data));
+      toast.success(res?.data?.message || res?.message || "Login Sucessfully");
       navigate("/admin/packages");
     } catch (error) {
       console.log(error);
+      toast.error(error?.data?.message || error?.data || "Invalid Otp");
     }
   };
 

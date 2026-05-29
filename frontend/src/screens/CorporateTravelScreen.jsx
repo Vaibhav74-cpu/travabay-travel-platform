@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Egypt from "../assets/Corporate-Travel/Egypt.jpeg";
-import Europe from "../assets/Corporate-Travel/Europe.webp";
-import AsiaMiddleEast from "../assets/Corporate-Travel/AsiaMiddleEast.jpeg";
+
 
 // Import your company logos
 import SecoLogo from "../assets/Corporate-Travel/Seco.png";
@@ -23,59 +21,22 @@ import ShriramLogo from "../assets/Corporate-Travel/SriramFinance.png";
 import CalderysLogo from "../assets/Corporate-Travel/Calderys.png";
 import MahagencoLogo from "../assets/Corporate-Travel/MahaGenco.png";
 import AnkitPulpLogo from "../assets/Corporate-Travel/AnkitPulps.png";
+import { corporateSlides } from '@/data/staticData';
 
 const CorporateTravelScreen = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
-    {
-      id: 1,
-      destination: 'Egypt',
-      backgroundImage: Egypt,
-      description: 'Inspire your team with unforgettable incentive travel',
-      highlights: [
-        'Explore the great pyramids of Giza',
-        'Sail down the Nile on a luxury cruise',
-        'Scuba diving and Red Sea beach retreats',
-        'Curated experiences for corporate groups'
-      ]
-    },
-    {
-      id: 2,
-      destination: 'Europe',
-      backgroundImage: Europe,
-      description: 'Conferences, incentives and rewards across iconic cities',
-      highlights: [
-        'Custom itineraries for conferences & exhibitions',
-        'Team bonding in Paris, Rome, Amsterdam and more',
-        'Curated gala dinners & unique venues',
-        'End-to-end visa, flights and logistics support'
-      ]
-    },
-    {
-      id: 3,
-      destination: 'Asia & Middle East',
-      backgroundImage: AsiaMiddleEast,
-      description: 'Short-haul getaways for meetings and incentives',
-      highlights: [
-        'Dubai, Singapore, Bali, Thailand and more',
-        'Modern convention centres & beach resorts',
-        'Team activities, desert safaris and cruises',
-        'Dedicated on-tour support team'
-      ]
-    }
-  ];
 
   const logos = [
     SecoLogo, HdfcLogo, IciLogo, TagitLogo, TechMahindraLogo, BoschLogo, JswLogo, LupinLogo, Pidilitelogo, KecLogo, MahindraLogo, TransrailLogo, DiffusionLogo, ShriramLogo, CalderysLogo, MahagencoLogo, AnkitPulpLogo
   ];
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setCurrentSlide((prev) => (prev + 1) % corporateSlides.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    setCurrentSlide((prev) => (prev - 1 + corporateSlides.length) % corporateSlides.length);
   };
 
   useEffect(() => {
@@ -83,7 +44,7 @@ const CorporateTravelScreen = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const currentSlideData = slides[currentSlide];
+  const currentSlideData = corporateSlides[currentSlide];
 
   return (
     <div className="w-full bg-gray-100">
@@ -205,7 +166,7 @@ const CorporateTravelScreen = () => {
         <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3 items-center z-30">
           {/* Dots */}
           <div className="flex gap-2">
-            {slides.map((_, idx) => (
+            {corporateSlides.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentSlide(idx)}

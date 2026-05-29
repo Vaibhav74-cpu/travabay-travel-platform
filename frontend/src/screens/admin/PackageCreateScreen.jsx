@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { indiaData, tags, worldData } from "@/data/staticData";
 import { useCreatePackageMutation } from "@/redux/slices/packageApiSlice";
 import { ArrowLeft } from "lucide-react";
 import React, { useState } from "react";
@@ -9,80 +10,9 @@ function PackageCreateScreen() {
   const navigate = useNavigate();
   const [createPkg, { isLoading, isError }] = useCreatePackageMutation();
 
-  const indiaData = {
-    "north-india": {
-      "himachal pradesh": ["Manali", "Shimla", "Dharamshala"],
-      uttarakhand: ["Nainital", "Rishikesh", "Haridwar"],
-      "jammu kashmir": ["Srinagar", "Gulmarg"],
-    },
-
-    "south-india": {
-      kerala: ["Munnar", "Alleppey", "Kochi"],
-      tamilnadu: ["Ooty", "Kodaikanal", "Chennai"],
-      karnataka: ["Coorg", "Bangalore"],
-    },
-
-    "west-india": {
-      goa: ["North Goa", "South Goa"],
-      gujarat: ["Ahmedabad", "Kutch"],
-      rajasthan: ["Jaipur", "Udaipur", "Jaisalmer"],
-      maharashtra: ["Mumbai", "Lonavala", "Pune"],
-    },
-
-    "north-east": {
-      assam: ["Guwahati", "Kaziranga"],
-      sikkim: ["Gangtok"],
-      meghalaya: ["Shillong"],
-    },
-  };
-
-  const worldData = {
-    asia: {
-      japan: ["Tokyo", "Kyoto", "Osaka"],
-      thailand: ["Bangkok", "Phuket", "Krabi"],
-      indonesia: ["Bali"],
-    },
-
-    europe: {
-      france: ["Paris", "Nice"],
-      italy: ["Rome", "Venice"],
-      switzerland: ["Zurich", "Lucerne"],
-    },
-
-    america: {
-      usa: ["New York", "Los Angeles", "Las Vegas"],
-      canada: ["Toronto", "Vancouver"],
-    },
-
-    africa: {
-      egypt: ["Cairo", "Luxor"],
-      kenya: ["Nairobi"],
-    },
-  };
-  const tagOptions = [
-    "GROUP TOUR",
-    "PRIVATE TOUR",
-    "FAMILY",
-    "COUPLE",
-    "SOLO",
-
-    "ADVENTURE",
-    "TREKKING",
-    "BEACH",
-    "MOUNTAINS",
-    "WILDLIFE",
-
-    "HONEYMOON",
-    "LUXURY",
-    "BUDGET",
-    "RELAXATION",
-
-    "CULTURE",
-    "WEEKEND GETAWAY",
-  ];
-
   // STATES
-  const [imageFile, setImageFile] = useState();
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [type, setType] = useState(""); // india | world
 
   // india
@@ -108,6 +38,7 @@ function PackageCreateScreen() {
     priceNote: "",
     image: "",
   });
+
   const inputHandler = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -140,7 +71,6 @@ function PackageCreateScreen() {
     formData.append("title", input.title);
     formData.append("badge", input.badge);
     formData.append("tags", JSON.stringify(input.tags));
-    // formData.append("tags", input.tags);
     formData.append("rating", input.rating);
     formData.append("reviews", input.reviews);
     formData.append("inclusive", input.inclusive);
@@ -366,7 +296,7 @@ function PackageCreateScreen() {
               </label>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {tagOptions.map((tag) => (
+                {tags.map((tag) => (
                   <label
                     key={tag}
                     className={`flex items-center gap-2 border rounded-lg px-3 py-2 cursor-pointer transition ${
@@ -416,15 +346,6 @@ function PackageCreateScreen() {
               className="input"
             />
 
-            {/* <input
-              type="number"
-              name="destinations"
-              value={input.destinations}
-              onChange={inputHandler}
-              placeholder="Destinations"
-              className="input"
-            /> */}
-
             <input
               type="number"
               name="departures"
@@ -462,15 +383,38 @@ function PackageCreateScreen() {
             className="input w-full h-24"
           />
           {/* Image */}
-          <input
+          {/* <input
             type="file"
             onChange={(e) => setImageFile(e.target.files[0])}
             placeholder="select image"
-          />
+          /> */}
           {/* Preview */}
           {/* {input.image && (
             <img src={input.image} alt="preview" className="w-40 rounded-lg" />
-          )} */}
+          )
+          } */}
+
+          {/* Image */}
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files[0];
+
+              if (file) {
+                setImageFile(file);
+                setImagePreview(URL.createObjectURL(file));
+              }
+            }}
+          />
+          {imagePreview && (
+            <img
+              src={imagePreview}
+              alt="Preview"
+              className="mt-4 w-40 h-40 object-cover rounded-lg border"
+            />
+          )}
+
           {/* Checkbox */}
           <label className="flex items-center gap-2">
             <input

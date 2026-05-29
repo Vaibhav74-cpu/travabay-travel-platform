@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 function PackagesByCityScreen() {
   const { city } = useParams();
   const { data: packages } = useGetPackagesByCityQuery(city);
-  // console.log(packages);
 
   return (
    <div className="max-w-6xl mx-auto mt-12">

@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function AdminDashboard() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,9 +18,11 @@ function AdminDashboard() {
     try {
       await logoutApi().unwrap();
       dispatch(logout());
+      toast.success("Logout sucessfully");
       navigate("/admin/login");
     } catch (error) {
       console.log(error.message);
+      toast.error(error?.data?.message || error?.message || "Failed to logout");
     }
   };
   return (

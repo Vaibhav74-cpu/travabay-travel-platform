@@ -9,82 +9,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import TravelPackage from "@/components/shared/TravelPackage";
-import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-import packages from "../packages.js";
 import { useGetPackagesQuery } from "@/redux/slices/packageApiSlice.js";
 import Loader from "@/components/shared/Loader.jsx";
 import Message from "@/components/shared/Message.jsx";
 import { Link, useParams } from "react-router-dom";
-import SearchBox from "@/components/shared/SearchBox.jsx";
+import { priceRanges, tags } from "@/data/staticData.js";
 
-const tags = [
-  "All Tags",
-  "GROUP TOUR",
-  "PRIVATE TOUR",
-  "FAMILY",
-  "COUPLE",
-  "SOLO",
-
-  "ADVENTURE",
-  "TREKKING",
-  "BEACH",
-  "MOUNTAINS",
-  "WILDLIFE",
-
-  "HONEYMOON",
-  "LUXURY",
-  "BUDGET",
-  "RELAXATION",
-
-  "CULTURE",
-  "WEEKEND GETAWAY",
-];
-
-// const themes = [
-//   { value: "all", label: "All Themes" },
-//   { value: "beach", label: "BEACH" },
-//   { value: "culture", label: "CULTURE | HERITAGE | NATURE" },
-//   { value: "international", label: "INTERNATIONAL" },
-//   { value: "premium", label: "CULTURE | CHERRY BLOSSOM | PREMIUM" },
-//   { value: "nature", label: "NATURE, MOUNTAINS, LAKES" },
-//   { value: "couple", label: "COUPLE" },
-//   { value: "trek", label: "TREK" },
-//   { value: "heritage", label: "HERITAGE" },
-//   { value: "adventure", label: "ADVENTURE" },
-//   { value: "mountains", label: "ADVENTURE • CAFE • MOUNTAINS" },
-//   { value: "luxury", label: "PRIVATE LUXURY TOUR" },
-//   { value: "private", label: "Private Tour / Wellness Retreat" },
-//   { value: "himalaya", label: "HIM • NATURE • TREK" },
-//   { value: "camping", label: "TREK • HIMALAYA • CAMPING • NATURE" },
-//   { value: "leisure", label: "INTERNATIONAL | LEISURE" },
-// ];
-
-const priceRanges = [
-  { id: 1, label: "Under ₹ 20,000", min: 0, max: 20000 },
-  { id: 2, label: "₹ 20,000 - ₹ 80,000", min: 20000, max: 80000 },
-  { id: 3, label: "₹ 80,000 - ₹ 1.4L", min: 80000, max: 140000 },
-  { id: 4, label: "₹ 1.4L - ₹ 2L", min: 140000, max: 200000 },
-  { id: 5, label: "₹ 2L above", min: 200000, max: Infinity },
-];
-
-// const countries = [
-//   { id: 1, name: "1", count: 1 },
-//   { id: 2, name: "2", count: 1 },
-//   { id: 3, name: "5", count: 1 },
-//   { id: 4, name: "2 Cities", count: 6 },
-//   { id: 5, name: "3 Cities", count: 5 },
-//   { id: 6, name: "4 Cities", count: 4 },
-//   { id: 7, name: "Georgia", count: 5 },
-//   { id: 8, name: "Singapore", count: "" },
-//   { id: 9, name: "Japan", count: "" },
-//   { id: 10, name: "India", count: "" },
-//   { id: 11, name: "Korea", count: "" },
-//   { id: 12, name: "Phillipinnes", count: "" },
-//   { id: 13, name: "Sri Lanka", count: "" },
-//   { id: 14, name: "Combodia", count: "" },
-//   { id: 15, name: "Thailand", count: "" },
-// ];
 
 function PackagesScreen() {
   const { keyword, pageNumber } = useParams();
@@ -93,12 +24,9 @@ function PackagesScreen() {
     isLoading,
     isError,
   } = useGetPackagesQuery({ keyword: keyword, pageNumber: pageNumber || "" });
-  // console.log(packages);
-
-  const [selectedTheme, setSelectedTheme] = useState("all");
+  
   const [selectedTag, setSelectedTag] = useState("All Tags");
   const [selectedPriceRanges, setSelectedPriceRanges] = useState([]);
-  const [selectedCountries, setSelectedCountries] = useState([]);
   const [countrySearch, setCountrySearch] = useState("");
 
   // Filter packages based on selected filters
@@ -136,7 +64,7 @@ function PackagesScreen() {
   });
 
   const handleResetFilters = () => {
-    setSelectedTheme("all");
+   
     setSelectedTag("All Tags");
     setSelectedPriceRanges([]);
     setSelectedCountries([]);
@@ -151,17 +79,6 @@ function PackagesScreen() {
     );
   };
 
-  // const toggleCountry = (countryId) => {
-  //   setSelectedCountries((prev) =>
-  //     prev.includes(countryId)
-  //       ? prev.filter((id) => id !== countryId)
-  //       : [...prev, countryId],
-  //   );
-  // };
-
-  // const filteredCountries = countries.filter((country) =>
-  //   country.name.toLowerCase().includes(countrySearch.toLowerCase()),
-  // );
 
   if (isLoading) return <p className="p-6">Loading...</p>;
   if (isError) return <p className="p-6">Error loading packages</p>;
@@ -264,30 +181,16 @@ function PackagesScreen() {
               </div>
             </div>
 
-            {/* Departure City Section */}
-            {/* <div className="mb-4 md:mb-6 pb-4 md:pb-6 border-b border-gray-200">
-              <h4 className="font-semibold text-gray-900 text-xs md:text-xs mb-2 md:mb-1">
-                Departure City
-              </h4>
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 rounded border-gray-300 text-blue-600"
-                />
-                <span className="text-xs md:text-xs text-gray-700">
-                  All departures (33)
-                </span>
-              </label>
-            </div> */}
 
             {/* Countries Section */}
+
             <div>
-              <h4 className="font-semibold text-gray-900 text-xs md:text-sm mb-2 md:mb-3">
+              {/* <h4 className="font-semibold text-gray-900 text-xs md:text-sm mb-2 md:mb-3">
                 Countries
-              </h4>
+              </h4> */}
 
               {/* Search Input */}
-              <div className="relative mb-3">
+              {/* <div className="relative mb-3">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input
                   type="text"
@@ -296,31 +199,10 @@ function PackagesScreen() {
                   onChange={(e) => setCountrySearch(e.target.value)}
                   className="w-full pl-9 pr-3 py-1 border border-gray-300 rounded-full text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-gray-500"
                 />
-
-                {/* <SearchBox /> */}
-              </div>
-
-              {/* Countries List */}
-              {/* <div className="max-h-[170px] overflow-y-auto space-y-2">
-                {filteredCountries.map((country) => (
-                  <label
-                    key={country.id}
-                    className="flex items-center gap-3 cursor-pointer"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selectedCountries.includes(country.id)}
-                      onChange={() => toggleCountry(country.id)}
-                      className="w-4 h-4 rounded border-gray-300 text-blue-600"
-                    />
-                    <span className="text-xs md:text-xs text-gray-700">
-                      {country.name}{" "}
-                      <span className="text-gray-500">({country.count})</span>
-                    </span>
-                  </label>
-                ))}
               </div> */}
+
             </div>
+            
           </div>
         </div>
 

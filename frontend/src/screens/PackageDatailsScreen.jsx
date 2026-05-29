@@ -1,19 +1,11 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
-  ChevronDown,
-  ChevronUp,
   MapPin,
   Calendar,
   Users,
   Star,
   Clock,
-  Shield,
-  Utensils,
-  Camera,
-  Bus,
-  BookOpen,
-  FileCheck,
   Phone,
   Mail,
   ChevronRight,
@@ -22,35 +14,12 @@ import {
 import Loader from "@/components/shared/Loader";
 import Message from "@/components/shared/Message";
 import { useGetPackageByIdQuery } from "@/redux/slices/packageApiSlice";
-
 import StarRating from "@/components/shared/StarRating";
 import TagBadge from "@/components/shared/TopBadge";
 import AccordionItem from "@/components/shared/AccordionItem";
-import { DEFAULT_ITINERARY } from "@/data/staticData";
+import { DEFAULT_ITINERARY, FALLBACK_IMAGES, INCLUDES } from "@/data/staticData";
 import { useCreateBookingMutation } from "@/redux/slices/bookingApiSlice";
 import ReserveSpot from "@/components/shared/ReserveSpot";
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-const FALLBACK_IMAGES = [
-  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
-  "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=400&q=80",
-  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&q=80",
-  "https://images.unsplash.com/photo-1548013146-72479768bada?w=400&q=80",
-  "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&q=80",
-  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400&q=80",
-];
-
-const INCLUDES = [
-  { icon: Shield, label: "Hotel" },
-  { icon: Utensils, label: "Meals" },
-  { icon: Camera, label: "Sightseeing" },
-  { icon: Bus, label: "Transport" },
-  { icon: BookOpen, label: "Guide" },
-  { icon: FileCheck, label: "Permits" },
-];
-
-// Dummy itinerary — replace with pkg.itinerary once your backend exposes it
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -69,20 +38,11 @@ function SectionTab({ label, active, onClick }) {
 
 function PackageDetailsScreen() {
   const { id: packageId } = useParams();
-  const [open, setOpen] = useState(false);
   const { data: pkg, isLoading, isError } = useGetPackageByIdQuery(packageId);
-  
   const [reserveSpot] = useCreateBookingMutation();
-
-  console.log(pkg);
-
- 
   const navigate = useNavigate();
   const [activeThumb, setActiveThumb] = useState(0);
   const [activeSection, setActiveSection] = useState("Itinerary");
-  const [form, setForm] = useState({ name: "", email: "", phone: "" });
-
-
 
   const images = pkg?.image
     ? [pkg.image, ...FALLBACK_IMAGES.slice(1)]
@@ -335,50 +295,6 @@ function PackageDetailsScreen() {
 
             {/* Call-back form */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-              {/* <form onSubmit={submitHandler}>
-                <h2 className="text-base font-bold text-gray-900 mb-4">
-                  Want us to call you?
-                </h2>
-                <div className="space-y-3">
-                  <input
-                    type="text"
-                    placeholder="Full Name*"
-                    value={form.name}
-                    onChange={(e) =>
-                      setForm((p) => ({ ...p, name: e.target.value }))
-                    }
-                    className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Email ID*"
-                    value={form.email}
-                    onChange={(e) =>
-                      setForm((p) => ({ ...p, email: e.target.value }))
-                    }
-                    className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
-                  />
-                  <div className="flex gap-2">
-                    <div className="flex items-center gap-1 border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-gray-50 shrink-0">
-                      <span className="text-xs">🇮🇳</span>
-                      <span className="text-gray-700 font-medium">+91</span>
-                      <ChevronDown size={12} className="text-gray-400" />
-                    </div>
-                    <input
-                      type="tel"
-                      placeholder="+91"
-                      value={form.phone}
-                      onChange={(e) =>
-                        setForm((p) => ({ ...p, phone: e.target.value }))
-                      }
-                      className="flex-1 border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
-                    />
-                  </div>
-                  <button className="w-full bg-amber-400 hover:bg-amber-500 text-white font-bold py-3 rounded-xl transition-colors text-sm">
-                    Request Call Back
-                  </button>
-                </div>
-              </form> */}
             </div>
 
             {/* Booking / Departure Section */}

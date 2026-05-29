@@ -22,7 +22,6 @@ function EnquirysScreen() {
   const { data, isLoading, isError, refetch } = useGetEnquiriesQuery();
   const [updateEnquiery] = useUpdateEnquieryStatusMutation();
   const [deleteEnq] = useDeleteEnquiryMutation();
-  // console.log(data);
 
   const deleteEnquiery = async (id) => {
     if (window.confirm("Are you sure want to delete this Enquiery")) {

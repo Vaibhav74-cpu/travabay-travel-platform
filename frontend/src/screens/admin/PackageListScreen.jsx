@@ -23,7 +23,6 @@ function PackageListScreen() {
   const navigate = useNavigate();
   const { data: packages, isLoading, isError, refetch } = useGetPackagesQuery();
   const [deletePkg] = useDeletePackageMutation();
-  // console.log(packages);
 
   const packageEdit = (id) => {
     if (!id) {

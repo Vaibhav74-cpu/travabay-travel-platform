@@ -15,8 +15,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { CheckCircle, CheckCircle2, Clock, MoreVertical, XCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import {
+  CheckCircle,
+  CheckCircle2,
+  Clock,
+  MoreVertical,
+  XCircle,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,9 +32,9 @@ import { toast } from "sonner";
 
 function BookingScreen() {
   const { data, isLoading, isError, refetch } = useGetBookingsQuery();
+
   const [deleteBkg] = useDeleteBookingMutation();
   const [updateBkg] = useUpdatBookingStatusMutation();
-  // console.log(data);
 
   const updateBookingStatus = async (bookingId, status) => {
     try {
@@ -60,6 +65,7 @@ function BookingScreen() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
         <div className="flex flex-col sm:flex-row justify-between items-center  gap-4">
           <h2 className="font-bold text-2xl text-gray-800">BOOKINGS</h2>
+          <h2 className="font-bold text-2xl text-gray-800">TOTAL BOOKINGS : {data?.count}</h2>
         </div>
         <div className="mt-6 bg-white shadow rounded-xl p-4 overflow-x-auto">
           <Table>
@@ -67,8 +73,10 @@ function BookingScreen() {
             <TableHeader>
               <TableRow>
                 <TableHead>Full Name</TableHead>
-                <TableHead>EmailL</TableHead>
+                <TableHead>Email</TableHead>
                 <TableHead>Phone Number</TableHead>
+                <TableHead>Price</TableHead>
+                <TableHead>title</TableHead>
                 <TableHead>Departure City</TableHead>
                 <TableHead>Departure Date</TableHead>
                 <TableHead>Special Request</TableHead>
@@ -92,6 +100,12 @@ function BookingScreen() {
                   {/* PHONE NUMBER */}
                   <TableCell>{booking?.phoneNumber}</TableCell>
 
+                  {/* Price */}
+                  <TableCell>{booking?.packageId?.price}</TableCell>
+
+                  {/* title */}
+                  <TableCell>{booking?.packageId?.title}</TableCell>
+
                   {/*  DEPARTURE CITY */}
                   <TableCell>{booking?.departureCity}</TableCell>
 
@@ -102,7 +116,17 @@ function BookingScreen() {
                   <TableCell>{booking?.specialRequest}</TableCell>
 
                   {/* TRAVEL DETAILS */}
-                  <TableCell>{booking?.tripDetails}</TableCell>
+                  <TableCell>
+                    <div className="relative group max-w-[250px]">
+                      <p className="truncate cursor-pointer">
+                        {booking?.tripDetails}
+                      </p>
+
+                      <div className="absolute left-0 top-full mt-2 z-50 hidden group-hover:block w-96 p-4 bg-white border rounded-lg shadow-xl text-sm text-gray-700 whitespace-normal break-words">
+                        {booking?.tripDetails}
+                      </div>
+                    </div>
+                  </TableCell>
 
                   {/* WHATSAPP UPDATE */}
                   <TableCell>

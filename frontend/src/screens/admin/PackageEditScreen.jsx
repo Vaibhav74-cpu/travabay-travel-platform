@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Form, useNavigate, useParams } from "react-router-dom";
-
 import {
   useGetPackageByIdQuery,
   useUpdatePackageMutation,
 } from "@/redux/slices/packageApiSlice";
 import { Button } from "@/components/ui/button";
-import { BiLeftArrow } from "react-icons/bi";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
+import { indiaData, tags, worldData } from "@/data/staticData";
 
 function PackageEditScreen() {
   const { id } = useParams();
@@ -16,65 +15,65 @@ function PackageEditScreen() {
   const { data: pkg, isLoading, isError } = useGetPackageByIdQuery(id);
   const [updatePackage, { isLoading: updating }] = useUpdatePackageMutation();
 
-  const indiaData = {
-    "north-india": {
-      "himachal pradesh": ["Manali", "Shimla", "Dharamshala"],
-      uttarakhand: ["Nainital", "Rishikesh", "Haridwar"],
-      "jammu kashmir": ["Srinagar", "Gulmarg"],
-    },
+  // const indiaData = {
+  //   "north-india": {
+  //     "himachal pradesh": ["Manali", "Shimla", "Dharamshala"],
+  //     uttarakhand: ["Nainital", "Rishikesh", "Haridwar"],
+  //     "jammu kashmir": ["Srinagar", "Gulmarg"],
+  //   },
 
-    "south-india": {
-      kerala: ["Munnar", "Alleppey", "Kochi"],
-      tamilnadu: ["Ooty", "Kodaikanal", "Chennai"],
-      karnataka: ["Coorg", "Bangalore"],
-    },
+  //   "south-india": {
+  //     kerala: ["Munnar", "Alleppey", "Kochi"],
+  //     tamilnadu: ["Ooty", "Kodaikanal", "Chennai"],
+  //     karnataka: ["Coorg", "Bangalore"],
+  //   },
 
-    "west-india": {
-      goa: ["North Goa", "South Goa"],
-      gujarat: ["Ahmedabad", "Kutch"],
-      rajasthan: ["Jaipur", "Udaipur", "Jaisalmer"],
-      maharashtra: ["Mumbai", "Lonavala", "Pune"],
-    },
+  //   "west-india": {
+  //     goa: ["North Goa", "South Goa"],
+  //     gujarat: ["Ahmedabad", "Kutch"],
+  //     rajasthan: ["Jaipur", "Udaipur", "Jaisalmer"],
+  //     maharashtra: ["Mumbai", "Lonavala", "Pune"],
+  //   },
 
-    "north-east": {
-      assam: ["Guwahati", "Kaziranga"],
-      sikkim: ["Gangtok"],
-      meghalaya: ["Shillong"],
-    },
-  };
+  //   "north-east": {
+  //     assam: ["Guwahati", "Kaziranga"],
+  //     sikkim: ["Gangtok"],
+  //     meghalaya: ["Shillong"],
+  //   },
+  // };
 
-  const worldData = {
-    asia: {
-      japan: ["Tokyo", "Kyoto", "Osaka"],
-      thailand: ["Bangkok", "Phuket", "Krabi"],
-      indonesia: ["Bali"],
-    },
+  // const worldData = {
+  //   asia: {
+  //     japan: ["Tokyo", "Kyoto", "Osaka"],
+  //     thailand: ["Bangkok", "Phuket", "Krabi"],
+  //     indonesia: ["Bali"],
+  //   },
 
-    europe: {
-      france: ["Paris", "Nice"],
-      italy: ["Rome", "Venice"],
-      switzerland: ["Zurich", "Lucerne"],
-    },
+  //   europe: {
+  //     france: ["Paris", "Nice"],
+  //     italy: ["Rome", "Venice"],
+  //     switzerland: ["Zurich", "Lucerne"],
+  //   },
 
-    america: {
-      usa: ["New York", "Los Angeles", "Las Vegas"],
-      canada: ["Toronto", "Vancouver"],
-    },
+  //   america: {
+  //     usa: ["New York", "Los Angeles", "Las Vegas"],
+  //     canada: ["Toronto", "Vancouver"],
+  //   },
 
-    africa: {
-      egypt: ["Cairo", "Luxor"],
-      kenya: ["Nairobi"],
-    },
-  };
+  //   africa: {
+  //     egypt: ["Cairo", "Luxor"],
+  //     kenya: ["Nairobi"],
+  //   },
+  // };
 
-  const tagOptions = [
-    "GROUP TOUR",
-    "FAMILY",
-    "BEACH",
-    "ADVENTURE",
-    "HONEYMOON",
-    "TREKKING",
-  ];
+  // const tagOptions = [
+  //   "GROUP TOUR",
+  //   "FAMILY",
+  //   "BEACH",
+  //   "ADVENTURE",
+  //   "HONEYMOON",
+  //   "TREKKING",
+  // ];
   const [type, setType] = useState(""); // india | world
 
   // india
@@ -396,7 +395,7 @@ function PackageEditScreen() {
               </label>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {tagOptions.map((tag) => (
+                {tags.map((tag) => (
                   <label
                     key={tag}
                     className={`flex items-center gap-2 border rounded-lg px-3 py-2 cursor-pointer transition ${

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Home2 from "../assets/contact-us/Home2.jpeg";
-import Home from "../assets/contact-us/Home.jpeg";
 import { useSendEnquieryMutation } from "@/redux/slices/enquieryApiSlice";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { contactSlides } from "@/data/staticData";
 
 const ContactScreen = () => {
   const navigate = useNavigate();
@@ -20,48 +19,14 @@ const ContactScreen = () => {
     travelDetails: "",
   });
 
-  const slides = [
-    {
-      id: 1,
-      destination: "Greek Islands",
-      backgroundImage: Home2,
-      description: "Whitewashed villages, sunsets and crystal clear waters.",
-      highlights: [
-        "Tailor-made itineraries curated by travel experts.",
-        "Hand-picked stays, local experiences and guided tours.",
-        "Visa, flights, insurance and FOREX assistance in one place.",
-      ],
-    },
-    {
-      id: 2,
-      destination: "Swiss Alps",
-      backgroundImage: Home,
-      description: "Snow-capped peaks, scenic trains and cosy mountain towns.",
-      highlights: [
-        "Tailor-made itineraries curated by travel experts.",
-        "Hand-picked stays, local experiences and guided tours.",
-        "Visa, flights, insurance and FOREX assistance in one place.",
-      ],
-    },
-    {
-      id: 3,
-      destination: "Maldives",
-      backgroundImage: Home,
-      description: "Overwater villas, coral reefs and endless shades of blue.",
-      highlights: [
-        "Tailor-made itineraries curated by travel experts.",
-        "Hand-picked stays, local experiences and guided tours.",
-        "Visa, flights, insurance and FOREX assistance in one place.",
-      ],
-    },
-  ];
+  
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setCurrentSlide((prev) => (prev + 1) % contactSlides.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    setCurrentSlide((prev) => (prev - 1 + contactSlides.length) % contactSlides.length);
   };
 
   useEffect(() => {
@@ -69,7 +34,7 @@ const ContactScreen = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const currentSlideData = slides[currentSlide];
+  const currentSlideData = contactSlides[currentSlide];
 
   const inputHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -77,14 +42,6 @@ const ContactScreen = () => {
 
   const submitEnquieryHandler = async (e) => {
     e.preventDefault();
-    // const formData = new FormData();
-    // formData.append("name", input.name);
-    // formData.append("email", input.email);
-    // formData.append("countryCode", input.countryCode);
-    // formData.append("phoneNumber", input.phone);
-    // formData.append("destination", input.destination);
-    // formData.append("travellers", input.travellers);
-    // formData.append("travelDetails", input.travelDetails);
 
     const payload = {
       name: input.name,
@@ -281,7 +238,7 @@ const ContactScreen = () => {
 
           {/* Dots */}
           <div className="flex gap-2">
-            {slides.map((_, idx) => (
+            {contactSlides.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentSlide(idx)}

@@ -18,15 +18,6 @@ function NavBar() {
           </Link>
         </div>
 
-        {/* CENTER: SEARCH (hidden on small screens) */}
-        {/* <div className="hidden md:flex flex-1 max-w-xl mx-6">
-          <input
-            type="text"
-            placeholder='Search "Eiffel Tower"'
-            className="w-full rounded-full px-4 h-10 text-sm text-black"
-          />
-        </div> */}
-
         <SearchBox />
 
         {/* RIGHT: BUTTONS (desktop) */}
