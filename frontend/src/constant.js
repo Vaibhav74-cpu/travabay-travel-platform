@@ -1,5 +1,7 @@
 export const BASE_URL =
-  process.env.NODE_ENV === "development" ? "http://localhost:5000" : "";
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:5000"
+    : "https://travabay-travel-platform.onrender.com";
 
 // export const BASE_URL = "http://localhost:8000";
 export const ADMIN_URL = "/api/admin";

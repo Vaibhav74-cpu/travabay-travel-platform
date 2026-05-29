@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: true,
+    origin: "https://travabay-travel-platform.onrender.com",
     credentials: true,
   }),
 );
@@ -47,4 +47,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`server running on server localhost:${PORT}`);
 });
-
