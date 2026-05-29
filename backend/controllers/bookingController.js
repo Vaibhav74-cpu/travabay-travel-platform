@@ -19,7 +19,14 @@ export const reserveSpot = asyncHandler(async (req, res) => {
   } = req.body;
 
   // Validation
-  if (!fullName || !phoneNumber || !email || !tripDetails || !packageId) {
+  if (
+    !fullName ||
+    !phoneNumber ||
+    !email ||
+    !tripDetails ||
+    !packageId ||
+    !departureCity
+  ) {
     res.status(400);
     throw new Error("Please provide all required fields");
   }
@@ -62,13 +69,14 @@ export const getBookings = asyncHandler(async (req, res) => {
   });
 });
 
-
 // @desc    get booking by ID
 // @route   get /api/booking/:id
 // @access  Private/Admin
 export const getBookingById = asyncHandler(async (req, res) => {
-  const booking = await Booking.findById(req.params.id)
-    .populate("packageId", "title image price");
+  const booking = await Booking.findById(req.params.id).populate(
+    "packageId",
+    "title image price",
+  );
 
   if (!booking) {
     res.status(404);
@@ -86,7 +94,6 @@ export const getBookingById = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 export const updateBookingStatus = asyncHandler(async (req, res) => {
   const { status } = req.body;
-  
 
   if (!status || !["confirmed", "cancelled"].includes(status)) {
     res.status(400);
@@ -111,7 +118,7 @@ export const updateBookingStatus = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc   delete booking 
+// @desc   delete booking
 // @route   delete /api/booking/:id
 // @access  Private/Admin
 export const deleteBooking = asyncHandler(async (req, res) => {
