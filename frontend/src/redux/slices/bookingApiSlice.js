@@ -6,44 +6,53 @@ export const bookingApislice = apiSlice.injectEndpoints({
     //USER CREATE BOOKING
     createBooking: builder.mutation({
       query: (data) => ({
-        url: `${BOOKING_URL}`,
+        url: `/api/booking`,
         method: "POST",
         body: { ...data },
       }),
+      invalidatesTags: ["Booking"],
     }),
 
     //ADMIN GET ALL BOOKINGS OF USER
     getBookings: builder.query({
       query: () => ({
-        url: BOOKING_URL,
+        url: `/api/booking`,
       }),
       keepUnusedDataFor: 5,
-      providesTags: ["Bookings"],
+      providesTags: ["Booking"],
     }),
 
     // ADMIN GET BOOKING DETAILS
     getBookingDetails: builder.query({
       query: (bookingId) => ({
-        url: `${BOOKING_URL}/${bookingId}`,
+        url: `/api/booking/${bookingId}`,
       }),
       keepUnusedDataFor: 5,
+      providesTags: (result, error, bookingId) => [
+        { type: "Booking", id: bookingId },
+      ],
     }),
 
     //ADMIN DELETE BOOKING
     deleteBooking: builder.mutation({
       query: (bookingId) => ({
-        url: `${BOOKING_URL}/${bookingId}`,
+        url: `/api/booking/${bookingId}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Booking"],
     }),
 
     //ADMIN MARK BOOKING STATUS [CONFIRMED , CANCEL]
     updatBookingStatus: builder.mutation({
       query: ({ bookingId, status }) => ({
-        url: `${BOOKING_URL}/${bookingId}/status`,
+        url: `/api/booking/${bookingId}/status`,
         method: "PUT",
         body: { status },
       }),
+      invalidatesTags: (result, error, { bookingId }) => [
+        "Booking",
+        { type: "Booking", id: bookingId },
+      ],
     }),
   }),
 });

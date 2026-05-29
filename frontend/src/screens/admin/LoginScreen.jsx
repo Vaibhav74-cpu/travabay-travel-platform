@@ -33,7 +33,6 @@ function LoginScreen() {
       );
       navigate("/admin/verify-email");
     } catch (error) {
-      console.log(error);
       toast.error(error?.data?.message || "Email is Invalid");
     }
   };

@@ -27,7 +27,6 @@ function VerifyOtpScreen() {
       toast.success(res?.data?.message || res?.message || "Login Sucessfully");
       navigate("/admin/packages");
     } catch (error) {
-      console.log(error);
       toast.error(error?.data?.message || error?.data || "Invalid Otp");
     }
   };

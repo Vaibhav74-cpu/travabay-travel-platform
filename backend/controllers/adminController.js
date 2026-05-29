@@ -53,7 +53,7 @@ export const logoutAdmin = asyncHandler(async (req, res) => {
 //      @access  /private user
 export const verifyEmailOtp = asyncHandler(async (req, res) => {
   const { email, otp } = req.body;
-  // console.log(email);
+  
 
   const admin = await Admin.findOne({ email });
 

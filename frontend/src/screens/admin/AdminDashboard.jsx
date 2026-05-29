@@ -21,7 +21,7 @@ function AdminDashboard() {
       toast.success("Logout sucessfully");
       navigate("/admin/login");
     } catch (error) {
-      console.log(error.message);
+      (error.message);
       toast.error(error?.data?.message || error?.message || "Failed to logout");
     }
   };

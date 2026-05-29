@@ -32,7 +32,6 @@ export const sendOtpEmail = async (user, otpCode) => {
         </div>
       `,
     });
-    // console.log(`OTP email sent to ${user.email}:`, info.messageId);?
     return { success: true, messageId: info.messageId };
   } catch (error) {
     throw new Error("Failed to send verification email");

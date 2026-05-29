@@ -15,24 +15,28 @@ const app = express();
 await connectDB();
 
 app.use(express.json());
+const __dirname = path.resolve();
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: true,
     credentials: true,
   }),
 );
-
-app.get("/", (req, res) => {
-  res.send("api is running");
-});
 
 app.use("/api/admin", adminRoutes);
 app.use("/api/enquiry", enquiryRoutes);
 app.use("/api/packages", packageRoute);
 app.use("/api/booking", bookingRoutes);
+
+//serve frontend from backend
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
+//for unkonwn route hits shows frontend home screen
+app.get(/.*/, (_, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+});
 
 //ROUTES
 
@@ -43,3 +47,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`server running on server localhost:${PORT}`);
 });
+

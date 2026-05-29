@@ -6,39 +6,39 @@ export const packagesApislice = apiSlice.injectEndpoints({
     //ADMIN CREATE NEW PACKAGE
     createPackage: builder.mutation({
       query: (formData) => ({
-        url: `${PACKAGE_URL}/add`,
+        url: `/api/packages/add`,
         method: "POST",
         body: formData,
       }),
-      invalidatesTags: ["Packages"],
+      invalidatesTags: ["Package"],
     }),
 
     //PUBLIC - USER AND ADMIN GET ALL PACKAGES
     getPackages: builder.query({
       query: ({ keyword } = {}) => ({
-        url: PACKAGE_URL,
+        url: `/api/packages`,
         params: {
           // pageNumber,
           keyword,
         },
       }),
       keepUnusedDataFor: 5,
-      providesTags: ["Packages"],
+      providesTags: ["Package"],
     }),
 
     //PUBLIC - USER GET PACKAGES MY CITIES
     getPackagesByCity: builder.query({
       query: (city) => ({
-        url: `${PACKAGE_URL}/city/${city}`,
+        url: `/api/packages/city/${city}`,
       }),
       keepUnusedDataFor: 5,
-      providesTags: ["Packages"],
+      providesTags: ["Package"],
     }),
 
     //PUBLIC -  USER AND ADMIN  GET PACKAGE DETAILS
     getPackageById: builder.query({
       query: (packageId) => ({
-        url: `${PACKAGE_URL}/${packageId}`,
+        url: `/api/packages/${packageId}`,
       }),
       keepUnusedDataFor: 5,
     }),
@@ -46,18 +46,18 @@ export const packagesApislice = apiSlice.injectEndpoints({
     //ADMIN UPDATE PACKAGE DETAILS
     updatePackage: builder.mutation({
       query: ({ id, formData }) => ({
-        url: `${PACKAGE_URL}/${id}`,
+        url: `/api/packages/${id}`,
         method: "PUT",
         body: formData,
       }),
 
-      invalidatesTags: ["Packages"],
+      invalidatesTags: ["Package"],
     }),
 
     //ADMIN DELETE PACKAGE
     deletePackage: builder.mutation({
       query: (packageId) => ({
-        url: `${PACKAGE_URL}/${packageId}`,
+        url: `/api/packages/${packageId}`,
         method: "DELETE",
       }),
     }),

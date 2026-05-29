@@ -13,7 +13,7 @@ export const protect = asyncHandler(async (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      // console.log(decoded);
+     
 
       const adminId = decoded.adminId;
 

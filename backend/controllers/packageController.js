@@ -167,7 +167,6 @@ export const updatePackage = asyncHandler(async (req, res) => {
   } = req.body;
   const image = req.file;
 
-  // console.log("image", image);
 
   const pkg = await Package.findById(req.params.id);
   if (!pkg) {

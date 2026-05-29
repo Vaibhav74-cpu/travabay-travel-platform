@@ -15,16 +15,6 @@ export const sendEnquiry = asyncHandler(async (req, res) => {
     travelDetails,
   } = req.body;
 
-  // console.log(
-  //   name,
-  //   email,
-  //   countryCode,
-  //   phoneNumber,
-  //   destination,
-  //   travellers,
-  //   travelDetails,
-  // );
-
   // Validation
   if (!name || !email || !phoneNumber || !destination || !travellers) {
     res.status(400);

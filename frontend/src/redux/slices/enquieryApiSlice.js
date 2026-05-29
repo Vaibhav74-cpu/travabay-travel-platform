@@ -6,7 +6,7 @@ export const enquieryApislice = apiSlice.injectEndpoints({
     //USER CREATE ENQUIRY
     sendEnquiery: builder.mutation({
       query: (data) => ({
-        url: `${ENQUIRY_URL}`,
+        url: `/api/enquiry`,
         method: "POST",
         body: { ...data },
       }),
@@ -15,7 +15,7 @@ export const enquieryApislice = apiSlice.injectEndpoints({
     //ADMIN GET ALL ENQUIRIES OF USER
     getEnquiries: builder.query({
       query: () => ({
-        url: ENQUIRY_URL,
+        url: `/api/enquiry`,
       }),
       keepUnusedDataFor: 5,
       providesTags: ["Enquiries"],
@@ -24,7 +24,7 @@ export const enquieryApislice = apiSlice.injectEndpoints({
     //ADMIN DELETE ENQUIRY AFTER INTERACTION DONE
     deleteEnquiry: builder.mutation({
       query: (enquiryId) => ({
-        url: `${ENQUIRY_URL}/${enquiryId}`,
+        url: `/api/enquiry/${enquiryId}`,
         method: "DELETE",
       }),
     }),
@@ -32,7 +32,7 @@ export const enquieryApislice = apiSlice.injectEndpoints({
     //ADMIN MARK ENQUIRY STATUS TO DONE
     updateEnquieryStatus: builder.mutation({
       query: (enquiryId) => ({
-        url: `${ENQUIRY_URL}/${enquiryId}/done`,
+        url: `/api/enquiry/${enquiryId}/done`,
         method: "PUT",
       }),
     }),
