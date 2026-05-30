@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "@/redux/slices/authSlice";
 import { toast } from "sonner";
+import { BASE_URL } from "@/constant";
 // import { useVerifyOtpMutation } from "@/redux/slices/adminApiSlice";
 
 function VerifyOtpScreen() {
@@ -17,7 +18,7 @@ function VerifyOtpScreen() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/admin/verify-email`,
+        `${BASE_URL}/api/admin/verify-email`,
         {
           email: otpEmail,
           otp,
