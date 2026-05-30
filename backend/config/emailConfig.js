@@ -7,7 +7,7 @@ export const sendOtpEmail = async (user, otpCode) => {
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: process.env.SMTP_PORT,
-      secure: false, // Use true for port 465, false for port 587
+      secure: true, // Use true for port 465, false for port 587
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -15,6 +15,7 @@ export const sendOtpEmail = async (user, otpCode) => {
     });
 
     await transporter.verify();
+    console.log("✅ SMTP connection successful");
 
     const info = await transporter.sendMail({
       from: `"TravaBay" <${process.env.SMTP_USER}>`,
@@ -34,6 +35,12 @@ export const sendOtpEmail = async (user, otpCode) => {
     });
     return { success: true, messageId: info.messageId };
   } catch (error) {
+    console.error("❌ Nodemailer Error:");
+    console.error("  Code    :", error.code);
+    console.error("  Response:", error.response);
+    console.error("  Command :", error.command);
+    console.error("  Message :", error.message);
+    
     throw new Error("Failed to send verification email");
   }
 };
