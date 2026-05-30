@@ -4,10 +4,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "@/redux/slices/authSlice";
 import { toast } from "sonner";
-// import { useVerifyOtpMutation } from "@/redux/slices/adminApiSlice";
+import { useVerifyOtpMutation } from "@/redux/slices/adminApiSlice";
 
 function VerifyOtpScreen() {
-  // const [verifyOtp] = useVerifyOtpMutation();
+  const [verifyOtp] = useVerifyOtpMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
@@ -16,16 +16,16 @@ function VerifyOtpScreen() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `https://travabay-travel-platform.onrender.com/api/admin/verify-email`,
-        {
-          email: otpEmail,
-          otp,
-        },
-        { withCredentials: true },
-      );
+      // const res = await axios.post(
+      //   `https://travabay-travel-platform.onrender.com/api/admin/verify-email`,
+      //   {
+      //     email: otpEmail,
+      //     otp,
+      //   },
+      //   { withCredentials: true },
+      // );
 
-      // const res = await verifyOtp({ email: otpEmail, otp }).unwrap();
+      const res = await verifyOtp({ email: otpEmail, otp }).unwrap();
       dispatch(setCredentials(res.data));
       toast.success(res?.data?.message || res?.message || "Login Sucessfully");
       navigate("/admin/packages");
