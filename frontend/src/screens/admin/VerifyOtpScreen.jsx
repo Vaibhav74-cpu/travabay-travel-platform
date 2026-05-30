@@ -15,7 +15,7 @@ function VerifyOtpScreen() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/admin/verify-email`,
+        `https://travabay-travel-platform.onrender.com/api/admin/verify-email`,
         {
           email: otpEmail,
           otp,
