@@ -12,14 +12,14 @@ export const adminApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    verifyOtp: builder.mutation({
-      query: (data) => ({
-        url: `/api/admin/verify-email`,
-        method: "POST",
-        body: data,
-        // credentials: "include",
-      }),
-    }),
+    // verifyOtp: builder.mutation({
+    //   query: (data) => ({
+    //     url: `/api/admin/verify-email`,
+    //     method: "POST",
+    //     body: data,
+    //     // credentials: "include",
+    //   }),
+    // }),
 
     logout: builder.mutation({
       query: () => ({
@@ -30,5 +30,4 @@ export const adminApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation, useVerifyOtpMutation } =
-  adminApiSlice;
+export const { useLoginMutation, useLogoutMutation } = adminApiSlice;
