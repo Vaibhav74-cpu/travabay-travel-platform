@@ -18,8 +18,8 @@ export const authAdmin = asyncHandler(async (req, res) => {
     admin.otp = otp;
     admin.otpExpire = Date.now() + 2 * 60 * 1000;
 
-    await admin.save();
     await sendOtpEmail(admin, otp);
+    await admin.save();
 
     res.status(200).json({
       _id: admin._id,
