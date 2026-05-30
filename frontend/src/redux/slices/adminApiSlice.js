@@ -8,7 +8,7 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         url: `/api/admin/login`,
         method: "POST",
         body: data,
-        // credentials: "include",
+        credentials: "include",
       }),
     }),
 
@@ -17,7 +17,7 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         url: `/api/admin/verify-email`,
         method: "POST",
         body: data,
-        // credentials: "include",
+        credentials: "include",
       }),
     }),
 
