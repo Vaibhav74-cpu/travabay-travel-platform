@@ -9,7 +9,7 @@ export const sendOtpEmail = async (user, otpCode) => {
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port, 
-      // secure: false, // Use true for port 465, false for port 587
+      // secure: false, // Use true for port 465, false  port 587
       secure: port === 465,
       requireTLS: true,
       family: 4,
