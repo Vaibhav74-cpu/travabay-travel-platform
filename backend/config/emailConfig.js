@@ -6,8 +6,14 @@ export const sendOtpEmail = async (user, otpCode) => {
   try {
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
-      secure: true, // Use true for port 465, false for port 587
+      port: Number(process.env.SMTP_PORT),
+      secure: false, // Use true for port 465, false for port 587
+      requireTLS: true,
+
+      connectionTimeout: 30000,
+      greetingTimeout: 30000,
+      socketTimeout: 30000,
+      
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -40,7 +46,7 @@ export const sendOtpEmail = async (user, otpCode) => {
     console.error("  Response:", error.response);
     console.error("  Command :", error.command);
     console.error("  Message :", error.message);
-    
+
     throw new Error("Failed to send verification email");
   }
 };
