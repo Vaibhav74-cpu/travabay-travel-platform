@@ -3,10 +3,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const sendOtpEmail = async (user, otpCode) => {
+  const port = parseInt(process.env.SMTP_PORT, 10);
   try {
+
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
+      port, 
       // secure: false, // Use true for port 465, false for port 587
       secure: port === 465,
       requireTLS: true,

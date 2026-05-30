@@ -19,7 +19,7 @@ export const authAdmin = asyncHandler(async (req, res) => {
     admin.otpExpire = Date.now() + 2 * 60 * 1000;
 
     await admin.save();
-    sendOtpEmail(admin, otp);
+    await sendOtpEmail(admin, otp);
 
     res.status(200).json({
       _id: admin._id,
@@ -53,7 +53,6 @@ export const logoutAdmin = asyncHandler(async (req, res) => {
 //      @access  /private user
 export const verifyEmailOtp = asyncHandler(async (req, res) => {
   const { email, otp } = req.body;
-  
 
   const admin = await Admin.findOne({ email });
 
@@ -86,12 +85,10 @@ export const verifyEmailOtp = asyncHandler(async (req, res) => {
   generateToken(res, admin._id);
 
   res.status(200).json({
-    success: true,  
+    success: true,
     adminId: admin._id,
     email: admin.email,
     isAdmin: admin.isAdmin,
     message: "Email verified successfully",
   });
 });
-
-
