@@ -6,12 +6,8 @@ export const sendOtpEmail = async (user, otpCode) => {
   try {
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
+      port: Number(process.env.SMTP_PORT),
       secure: false, // Use true for port 465, false for port 587
-      connectionTimeout: 30000,
-      greetingTimeout: 30000,
-      socketTimeout: 30000,
-      requireTLS: true,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -22,7 +18,7 @@ export const sendOtpEmail = async (user, otpCode) => {
     console.log("✅ SMTP connection successful");
 
     const info = await transporter.sendMail({
-      from: `"TravaBay" <${process.env.SMTP_USER}>`,
+      from: `"TravaBay" <${process.env.SENDER_EMAIL}>`,
       to: user.email,
       subject: "Email Verification OTP",
       html: `
