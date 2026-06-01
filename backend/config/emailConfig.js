@@ -14,13 +14,15 @@ export const sendOtpEmail = async (user, otpCode) => {
       connectionTimeout: 10000,
       greetingTimeout: 10000,
       socketTimeout: 10000,
+      family: 4,
+
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
     });
 
-    // await transporter.verify();
+    await transporter.verify();
     console.log("✅ SMTP connection successful");
 
     const info = await transporter.sendMail({
